@@ -76,5 +76,4 @@ describe('HeroesComponent (deep tests)', () => {
                 const heroText = fixture.debugElement.query(By.css('ul')).nativeElement.textContent;
                 expect(heroText).toContain(name);
         })
-
 });
