@@ -55,6 +55,7 @@ describe('HeroesComponent (deep tests)', () => {
                 const heroesComponents = fixture.debugElement.queryAll(By.directive(HeroComponent));
                 heroesComponents[0].query(By.css('button')).triggerEventHandler('click', { stopPropagation: () => { } });
                 // (<HeroComponent>heroesComponents[0].componentInstance).delete.emit(undefined); // alternate code
+                // heroesComponents[0].triggerEventHandler('delete', null); // alternate code, raising events on child directive 
 
                 expect(fixture.componentInstance.delete).toHaveBeenCalledWith(HEROES[0]);
         })
