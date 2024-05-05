@@ -1,10 +1,23 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing"
-import { NO_ERRORS_SCHEMA } from "@angular/core";
+import { Directive, Input, NO_ERRORS_SCHEMA } from "@angular/core";
 import { HeroService } from "../hero.service";
 import { of } from "rxjs";
 import { HeroesComponent } from "./heroes.component";
 import { By } from "@angular/platform-browser";
 import { HeroComponent } from "../hero/hero.component";
+
+@Directive({
+        selector: '[routerLink]',
+        host: { '(click)': 'onClick()' }
+})
+export class routerLinkDirectiveStub {
+        @Input('routerLink') linkParams: any;
+        navigatedTo: any = null;
+
+        onClick() {
+                this.navigatedTo = this.linkParams;
+        }
+}
 
 describe('HeroesComponent (deep tests)', () => {
         let fixture: ComponentFixture<HeroesComponent>;
@@ -21,11 +34,11 @@ describe('HeroesComponent (deep tests)', () => {
                 mockHeroService = jasmine.createSpyObj(['getHeroes', 'addHero', 'deleteHero']);
 
                 TestBed.configureTestingModule({
-                        declarations: [HeroesComponent, HeroComponent],
+                        declarations: [HeroesComponent, HeroComponent, routerLinkDirectiveStub],
                         providers: [
                                 { provide: HeroService, useValue: mockHeroService }
                         ],
-                        schemas: [NO_ERRORS_SCHEMA]
+                        // schemas: [NO_ERRORS_SCHEMA]
                 })
 
                 fixture = TestBed.createComponent(HeroesComponent);
